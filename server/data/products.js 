@@ -1,0 +1,28 @@
+const products = [
+    {
+        name: 'Headphones',
+        description: 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla',
+        brand: 'Apple',
+        category: 'Electronics',
+        price: 179.99,
+        countInStock: 526,
+    },
+    {
+        name: 'iPhone 12 Pro, 256 GB',
+        description: 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla',
+        brand: 'Apple',
+        category: 'Electronics',
+        price: 899.99,
+        countInStock: 435,
+    },
+    {
+        name: 'Logitech Wireless Mouse',
+        description: 'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla',
+        brand: 'Logitech',
+        category: 'Electronics',
+        price: 69.99,
+        countInStock: 1287,
+    },
+]
+
+export default products;
