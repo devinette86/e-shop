@@ -11,7 +11,7 @@ const router = express.Router();
 //const secret = "secret";
 
 // 1-  Register a user
-router.post("/register", async (req, res) => {
+router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   const hashPassword = await bcrypt.hash(password, 10);
   const newUser = new User({ name, email, password: hashPassword });
@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 
 // 2- Login a user
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
 });
 
 // 3- Get a user (/user/me)
-router.get("/me", auth, async (req, res) => {
+router.get('/me', auth, async (req, res) => {
   const { id } = req.user;
   const user = await User.findById(id);
   res.json(user);

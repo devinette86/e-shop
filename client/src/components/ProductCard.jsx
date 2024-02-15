@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/cartContext.jsx";
 
 function ProductCard({ product }) {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
     <div
       style={{
@@ -13,15 +20,20 @@ function ProductCard({ product }) {
         <h3>
           <strong>{product.name}</strong>
         </h3>
-      </Link>
-      <img src={product.thumbnail} width={200} alt="" />
-      <Link to={`/product/${product._id}`}>
-        <p>{product.description}</p>
-      </Link>
-      <Link to={`/product/${product._id}`}>
+        <img src={product.thumbnail} width={200} alt="" />
+        <p
+          style={{
+            height: "100px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {product.description}
+        </p>
         <h3>${product.price}</h3>
       </Link>
-      <button>Add to cart</button>
+      <button onClick={handleAddToCart}>Add to cart</button>
     </div>
   );
 }

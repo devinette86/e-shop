@@ -13,12 +13,8 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
-    },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
+      require: true,
+      select: false, // Password will not be included in query results by default
     },
   },
   {

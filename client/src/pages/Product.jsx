@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../context/cartContext.jsx";
 
 const Product = () => {
   const [product, setProduct] = useState({});
@@ -19,6 +20,12 @@ const Product = () => {
     fetchProduct();
   }, [productId]);
 
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
     <>
       <div
@@ -35,10 +42,12 @@ const Product = () => {
         <p>
           Availability:{" "}
           <strong>
-            {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+            {product.stockCount > 0 ? "In Stock" : "Out of Stock"}
           </strong>
         </p>
-        <button disabled={product.countInStock === 0}>Add to Cart</button>
+        <button onClick={handleAddToCart} disabled={product.stockCount === 0}>
+          Add to Cart
+        </button>
       </div>
     </>
   );
