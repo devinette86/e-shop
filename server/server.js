@@ -12,6 +12,11 @@ connectDB();
 
 const app = express();
 
+app.use('/cart', (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
 app.use(express.json());
 app.use(cors());
 

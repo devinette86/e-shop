@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema(
       require: true,
       select: false, // Password will not be included in query results by default
     },
+    cart: {
+      type: [],
+      default:[],
+    },
   },
   {
     timestamps: true,

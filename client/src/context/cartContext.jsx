@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
     setCartLoading();
     try {
       const response = await axios.get(
-        `http://localhost:3102/user/${user.userId}/cart`
+        `http://localhost:3102/user/${user._id}/cart`
       );
       setCart(response.data);
     } catch (error) {
@@ -28,33 +28,38 @@ export const CartProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  console.log("user", user);
 
   const addToCart = async (productId, quantity) => {
-    if (!user || !user.userId) {
+    console.log("User ID:", user._id); // Log user._id to the console
+    console.log("Request URL:", `http://localhost:3102/cart/${user._id}/add`); // Log the request URL
+    // console.log(quantity, user, productId);
+    if (!user || !user._id) {
       console.error("User or userId is undefined");
       return;
     }
 
     try {
       const response = await axios.post(
-        `http://localhost:3102/cart/${user.userId}/add`,
+        `http://localhost:3102/cart/${user._id}/add`,
         {
-          userId: user.userId,
           productId,
           quantity,
         }
       );
-
+      console.log("Full Response:", response);
+      // Update the cart state with the received data
       setCart(response.data);
     } catch (error) {
       console.error("Error adding to cart:", error.message);
+      console.log("Error response:", error.response);
     }
   };
 
   const removeFromCart = async (productId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3102/cart/${user.userId}/remove/${itemId}`
+        `http://localhost:3102/cart/${user._id}/remove/${itemId}`
       );
 
       setCart(response.data);
@@ -65,7 +70,7 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = async () => {
     try {
-      await axios.delete("http://localhost:3102/cart/${user.userId}/clear");
+      await axios.delete(`http://localhost:3102/cart/${user._id}/clear`);
       setCart([]);
     } catch (error) {
       console.error("Error clearing cart:", error.message);

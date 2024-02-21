@@ -5,7 +5,8 @@ function ProductCard({ product }) {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    addToCart(product);
+    console.log("Product ID:", product._id);
+    addToCart(product._id, 1);
   };
 
   return (

@@ -18,8 +18,11 @@ export const getCartItems = async (req, res) => {
   };
   
   export const addCartItem = async (req, res) => {
-    const userId = req.params.userId;
-    const { productId, quantity } = req.body;
+    const userId = req.params.userId; // Extract userId from the URL parameters
+    console.log("User ID from cartController:", userId);
+    const { productId, quantity } = req.body; // Assuming productId and quantity are sent in the request body
+    console.log("Req body:" req.body);
+    console.log("Req.params:"req.params);
   
     try {
       let cart = await Cart.findOne({ userId });
@@ -77,3 +80,4 @@ export const getCartItems = async (req, res) => {
       res.status(500).send("Something went wrong");
     }
   };
+  
