@@ -14,18 +14,27 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       require: true,
-      select: false, // Password will not be included in query results by default
+      select: false,
     },
-    cart: {
-      type: [],
-      default:[],
-    },
+    cart: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          default: 1,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;

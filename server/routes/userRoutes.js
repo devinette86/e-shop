@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
 // 3- Get a user (/user/me)
 router.get('/me', auth, async (req, res) => {
   const { id } = req.user;
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("cart.product");
   res.json(user);
 });
 

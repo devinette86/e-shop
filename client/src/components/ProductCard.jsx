@@ -4,9 +4,18 @@ import { useCart } from "../context/cartContext.jsx";
 function ProductCard({ product }) {
   const { addToCart } = useCart();
 
-  const handleAddToCart = () => {
-    console.log("Product ID:", product._id);
-    addToCart(product._id, 1);
+  const handleAddToCart = async () => {
+    try {
+      console.log("Product ID:", product._id);
+      // Assuming you have the product ID and quantity available
+      await addToCart(product._id, 1);
+
+      // Optional: You can show a success message or trigger any UI update
+      console.log("Item added to cart successfully!");
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Error adding item to cart:", error);
+    }
   };
 
   return (

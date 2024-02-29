@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../lib/axios-auth";
 const AuthContext = createContext(null);
 
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,7 +48,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
       console.log("Stored token:", token);
 
-      window.location.replace("/");
+      navigate("/");
     } catch (err) {
       alert(err.response.data.message);
     }
@@ -63,7 +65,7 @@ const AuthProvider = ({ children }) => {
 
     try {
       await axios.post("http://localhost:3102/user/register", body);
-      window.location.replace("/login");
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }
@@ -72,7 +74,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    window.location.replace("/login");
+    navigate("/login");
   };
 
   return (

@@ -4,7 +4,7 @@ import "dotenv/config";
 import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import cartRoutes from "./routes/userRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 const port = process.env.PORT;
 

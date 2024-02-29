@@ -25,7 +25,7 @@ const Header = () => {
             <NavLink to="/profile">
               <FaUserEdit /> Profile
             </NavLink>
-            <button onClick={logout}>Logout</button>
+            Hello, {user.name} !<button onClick={logout}>Logout</button>
           </>
         ) : (
           <>
