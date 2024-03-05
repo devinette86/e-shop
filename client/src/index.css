@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 :root {
   color: black;
   background-color: white;
+  text-align: center;
 }
 
 html {
@@ -18,13 +18,7 @@ html {
 body {
   /* 16px */
   font-size: 1.6rem;
-}
-
-body {
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 img {
@@ -32,11 +26,11 @@ img {
   object-fit: contain;
 }
 
-.App {
+/* .App {
   width: 100%;
   height: auto;
   min-height: 100vh;
-}
+} */
 
 /**/
 
@@ -49,29 +43,55 @@ a:hover {
   color: #535bf2;
 }
 
-
-
 h1 {
-  font-size: 3.2em;
+  font-size: 2.5em;
   line-height: 1.1;
 }
 
 button {
-  border-radius: 10px;
+  color: white;
+  background-color: #7e84f8;
+  background-image: linear-gradient(
+    -60deg,
+    transparent 0%, transparent 40%,
+    #ffffff44 40%, #ffffff44 60%,
+    transparent 60%, transparent 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  background-position-x: 150%;
+  border-radius: 0.7rem;
   border: 1px solid transparent;
-  padding: 0.6em 1em;
+  text-decoration: none;
+  padding: 0.2em 0.5em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #7e84f8;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
-button:hover {
-  border-color: black;
+
+button:not([disabled]):hover {
+  background-position-x: -150%;
+  transition: background-position-x 1000ms;
 }
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.checkout-steps > div {
+  border-bottom: 0.2rem solid #a0a0a0;
+  color: #a0a0a0;
+}
+.checkout-steps > div.active {
+  border-bottom: 0.2rem solid #535bf2;
+  color: #535bf2;
+}

@@ -60,8 +60,40 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const increaseCartItemQuantity = async (itemId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3102/cart/${user._id}/increase/${itemId}`
+      );
+
+      setCart(response.data);
+    } catch (error) {
+      console.error("Error increasing item quantity:", error);
+    }
+  };
+
+  const decreaseCartItemQuantity = async (itemId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3102/cart/${user._id}/decrease/${itemId}`
+      );
+
+      setCart(response.data);
+    } catch (error) {
+      console.error("Error decreasing item quantity:", error);
+    }
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        increaseCartItemQuantity,
+        decreaseCartItemQuantity,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 const port = process.env.PORT;
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/api/products', productRoutes);
 app.use('/user', userRoutes);
 app.use('/cart', cartRoutes);
+app.use('/order', orderRoutes);
 
 app.get("/api/products", async (req, res) => {
     const { category } = req.query;

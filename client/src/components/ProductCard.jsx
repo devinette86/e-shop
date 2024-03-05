@@ -43,7 +43,12 @@ function ProductCard({ product }) {
         </p>
         <h3>${product.price}</h3>
       </Link>
-      <button onClick={handleAddToCart}>Add to cart</button>
+
+      {product.stockCount === 0 ? (
+        <button disabled>Out of stock</button>
+      ) : (
+        <button onClick={handleAddToCart}>Add to Cart</button>
+      )}
     </div>
   );
 }

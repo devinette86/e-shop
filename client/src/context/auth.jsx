@@ -59,6 +59,7 @@ const AuthProvider = ({ children }) => {
 
     const body = {
       name: e.target.name.value,
+      surname: e.target.surname.value,
       password: e.target.password.value,
       email: e.target.email.value,
     };

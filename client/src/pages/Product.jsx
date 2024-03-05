@@ -45,6 +45,7 @@ const Product = () => {
             {product.stockCount > 0 ? "In Stock" : "Out of Stock"}
           </strong>
         </p>
+
         <button onClick={handleAddToCart} disabled={product.stockCount === 0}>
           Add to Cart
         </button>

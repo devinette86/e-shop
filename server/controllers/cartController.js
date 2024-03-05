@@ -97,3 +97,72 @@ export const deleteCartItem = async (req, res) => {
   }
 };
 
+
+export const increaseCartItemQuantity = async (req, res) => {
+  const { userId, itemId } = req.params;
+
+  try {
+    let user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    // Check if the item exists in the user's cart
+    const existingCartItem = user.cart.find(
+      (item) => item._id.toString() === itemId
+    );
+
+    if (!existingCartItem) {
+      return res.status(404).json({ error: "Item not found in the cart!" });
+    }
+
+    // Increase the quantity of the item
+    existingCartItem.quantity += 1;
+
+    // Save the user with the updated cart
+    await user.save();
+    await user.populate("cart.product");
+    return res.status(200).json(user.cart);
+  } catch (error) {
+    console.error("Error increasing item quantity:", error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export const decreaseCartItemQuantity = async (req, res) => {
+  const { userId, itemId } = req.params;
+
+  try {
+    let user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    // Check if the item exists in the user's cart
+    const existingCartItem = user.cart.find(
+      (item) => item._id.toString() === itemId
+    );
+
+    if (!existingCartItem) {
+      return res.status(404).json({ error: "Item not found in the cart!" });
+    }
+
+    // Decrease the quantity of the item
+    existingCartItem.quantity -= 1;
+
+    // If the quantity is zero, remove the item from the cart
+    if (existingCartItem.quantity <= 0) {
+      user.cart = user.cart.filter((item) => item._id.toString() !== itemId);
+    }
+
+    // Save the user with the updated cart
+    await user.save();
+    await user.populate("cart.product");
+    return res.status(200).json(user.cart);
+  } catch (error) {
+    console.error("Error decreasing item quantity:", error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
