@@ -1,8 +1,32 @@
+.saved-addresses-container {
+  display: flex;
+}
+
+.saved-addresses,
+.address-form {
+  flex: 1;
+}
+
+.radio-option {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.radio-option:hover {
+  background-color: #f0f0f0;
+}
+
+.radio-option.selected {
+  background-color: #b3e0ff;
+}
+
 .form-group {
-    margin-bottom: 5px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 2px;
-  }
+  margin-bottom: 15px;
+}
+
+h4 {
+  margin-bottom: 10px;
+}
+

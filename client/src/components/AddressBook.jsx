@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./AddressBook.css";
 import { useAuth } from "../context/auth";
 
 const AddressBook = () => {
@@ -43,7 +44,6 @@ const AddressBook = () => {
 
   return (
     <>
-      <h4>Your saved addresses</h4>
       {addresses.length === 0 ? (
         <>
           <p>You have no saved addresses</p>

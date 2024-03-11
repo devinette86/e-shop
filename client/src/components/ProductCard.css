@@ -1,0 +1,21 @@
+.product-card {
+    width: 30rem;
+    box-shadow: 1px 1px 3px gray;
+    margin: 1rem;
+    border-radius: 0.5rem;
+}
+
+.product-card img {
+    width: 100%; /* // Take up 100% of the container's width */
+    height: 20rem; /* // Set a fixed height */
+}
+
+.product-card p {
+    height: 5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+

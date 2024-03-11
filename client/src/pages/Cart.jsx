@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import { useCart } from "../context/cartContext.jsx";
+import "./Cart.css";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -34,20 +35,22 @@ const Cart = () => {
   return (
     <>
       {cart && cart.length > 0 ? (
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
-          <div>
-            <h2>Your Cart Items</h2>
+        <div className="cart-container">
+          <div className="cart-left-column">
+            <h3>Your Cart Items</h3>
             {cart.map((item) => (
-              <div key={item._id}>
-                <div>image</div>
-                <div>
-                  <h4>Name: {item.product.name}</h4>
-                  <p>Price: {item.product.price}</p>
-                  <p>Quantity: {item.quantity}</p>
+              <div key={item._id} className="cart-item">
+                <span className="grid-name">
+                  <h4>{item.product.name}</h4>
+                </span>
+                <span className="grid-image">
+                  <img src={item.product.imageUrl} alt={item.product.name} />
+                </span>
+
+                <span className="grid-price">{item.product.price} €</span>
+                <span className="grid-quantity">Quantity: {item.quantity}</span>
+
+                <span className="grid-buttons">
                   <button onClick={() => increaseCartItemQuantity(item._id)}>
                     <FaPlus />
                   </button>
@@ -59,24 +62,28 @@ const Cart = () => {
                   >
                     <FaTrashAlt />
                   </button>
-                </div>
+                </span>
               </div>
             ))}
           </div>
-          <div>
+          <div className="cart-right-column">
             <h3>
-              Total Items: (
+              Total Items:{" "}
               {cart.reduce(
                 (accumulator, item) => accumulator + item.quantity,
                 0
               )}
-              ){" "}
             </h3>
-            <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
-            <button>
-              <Link to="/">Continue Shopping</Link>
-            </button>
+            <h3>Total Price: {totalPrice.toFixed(2)} €</h3>
             <button onClick={checkoutHandler}>Proceed to Checkout</button>
+            <h4>Or...</h4>
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Continue Shopping
+            </button>
           </div>
         </div>
       ) : (

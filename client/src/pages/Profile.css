@@ -1,0 +1,23 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+   /*  margin-left: auto; shoots links to the right because parent display is flex */
+  }
+
+  .profile-container .left-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  .profile-container .right-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+    /* margin: 40px auto; //40 top and auto left right to centralize */
+  }
+  
+  

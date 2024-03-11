@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./Home.css";
 import ProductCard from "../components/ProductCard";
 import Filter from "../components/Filter";
 import { useAuth } from "../context/auth";
@@ -39,7 +40,6 @@ const Home = () => {
 
   return (
     <>
-      <h1>Welcome to this Shop</h1>
       {user ? (
         <>
           <h2>Our Latest Products</h2>
@@ -50,7 +50,7 @@ const Home = () => {
             selectedCategory={selectedCategory}
             onSelectCategory={filterProductsByCategory}
           />
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div className="products-container">
             {filteredProducts.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}

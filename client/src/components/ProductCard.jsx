@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./ProductCard.css";
 import { useCart } from "../context/cartContext.jsx";
 
 function ProductCard({ product }) {
@@ -19,29 +20,14 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div
-      style={{
-        width: "300px",
-        boxShadow: "1px 1px 3px gray",
-        margin: "10px",
-      }}
-    >
+    <div className="product-card">
       <Link to={`/product/${product._id}`}>
         <h3>
           <strong>{product.name}</strong>
         </h3>
-        <img src={product.thumbnail} width={200} alt="" />
-        <p
-          style={{
-            height: "100px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {product.description}
-        </p>
-        <h3>${product.price}</h3>
+        <img src={product.imageUrl} alt={product.name} />
+        <p>{product.description}</p>
+        <h3>{product.price} €</h3>
       </Link>
 
       {product.stockCount === 0 ? (

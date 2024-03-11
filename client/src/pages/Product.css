@@ -1,0 +1,30 @@
+.product-container img {
+  border: solid 1px black;
+  width: 100%; /* // Take up 100% of the container's width */
+  height: 50rem; /* // Set a fixed height */
+}
+
+.product-container {
+  border: solid 1px black;
+  height: 100vh;
+  box-shadow: 1px 1px 3px gray;
+  margin: 10px;
+  display: flex;
+}
+
+.product-container .left-column {
+  border: solid 1px black;
+width: 50%;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.product-container .right-column {
+  border: solid 1px black;
+width: 50%;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto;
+}
+

@@ -7,7 +7,7 @@
 :root {
   color: black;
   background-color: white;
-  text-align: center;
+/*   text-align: center; */
 }
 
 html {
@@ -26,11 +26,11 @@ img {
   object-fit: contain;
 }
 
-/* .App {
+.App {
   width: 100%;
   height: auto;
   min-height: 100vh;
-} */
+}
 
 /**/
 
@@ -48,6 +48,7 @@ h1 {
   line-height: 1.1;
 }
 
+
 button {
   color: white;
   background-color: #7e84f8;
@@ -64,6 +65,7 @@ button {
   border: 1px solid transparent;
   text-decoration: none;
   padding: 0.2em 0.5em;
+  margin: 0.1rem;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

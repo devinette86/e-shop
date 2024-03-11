@@ -1,9 +1,12 @@
 .footer {
     width: 100%;
     background-color: lightgray;
+    text-align: center; /* // from indx.css root  */
     display: flex;
     flex-direction: column;
     justify-content: center;
+/*     display: grid;
+    place-content: center; */
     padding: 1.5rem 1rem;
     z-index: 50;
   }

@@ -14,18 +14,20 @@ import Register from "./pages/Register";
 function App() {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/shipping" element={<ShippingAddress />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/profile/*" element={<Profile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <Footer />
+      <div className="app-container">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={<ShippingAddress />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/profile/*" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <Footer />
+      </div>
     </>
   );
 }
