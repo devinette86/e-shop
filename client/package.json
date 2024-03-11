@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.1.4",
+    "@stripe/react-stripe-js": "^2.5.1",
     "axios": "^1.6.7",
     "cors": "^2.8.5",
     "nodemon": "^3.0.3",

@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import ShippingAddress from "./pages/ShippingAddress";
 import Payment from "./pages/Payment";
+import Completion from "./pages/Completion";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<ShippingAddress />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/completion" element={<Completion />} />
           <Route path="/profile/*" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

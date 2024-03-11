@@ -1,11 +1,4 @@
-.saved-addresses-container {
-  display: flex;
-}
 
-.saved-addresses,
-.address-form {
-  flex: 1;
-}
 
 .radio-option {
   margin-bottom: 10px;
