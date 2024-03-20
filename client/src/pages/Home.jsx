@@ -4,6 +4,7 @@ import "./Home.css";
 import ProductCard from "../components/ProductCard";
 import Filter from "../components/Filter";
 import { useAuth } from "../context/auth";
+import { Carousel } from "../components/Carousel";
 
 const Home = () => {
   const { user } = useAuth();
@@ -40,6 +41,9 @@ const Home = () => {
 
   return (
     <>
+      <div className="carousel-container">
+        <Carousel />
+      </div>
       {user ? (
         <>
           <h2>Our Latest Products</h2>

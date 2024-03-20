@@ -50,6 +50,34 @@ router.get('/me', auth, async (req, res) => {
   res.json(user);
 });
 
+// Update user details
+router.patch("/:userId/edit-details", async (req, res) => {
+  const { userId } = req.params;
+  const { name, surname, email, password } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (name) user.name = name;
+    if (surname) user.surname = surname;
+    if (email) user.email = email;
+    if (password) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      user.password = hashPassword;
+    }
+
+    await user.save();
+
+    res.json({ message: "User details updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 // Get user adresses
 router.get('/:userId/addresses', async (req, res) => {
   const { userId } = req.params;
@@ -88,6 +116,40 @@ router.post('/:userId/addresses/add', async (req, res) => {
     // Save the updated user with the new address
     await user.save();
     res.status(201).json({ message: 'Address added successfully', address: newAddress });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Update user address
+router.patch("/:userId/addresses/:addressId", async (req, res) => {
+  const { userId, addressId } = req.params;
+  const { name, surname, address, zipCode, city } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const addressIndex = user.addresses.findIndex(
+      (addr) => addr._id.toString() === addressId
+    );
+
+    if (addressIndex === -1) {
+      return res.status(404).json({ message: "Address not found" });
+    }
+
+    // Update the address fields if provided
+    if (name) user.addresses[addressIndex].name = name;
+    if (surname) user.addresses[addressIndex].surname = surname;
+    if (address) user.addresses[addressIndex].address = address;
+    if (zipCode) user.addresses[addressIndex].zipCode = zipCode;
+    if (city) user.addresses[addressIndex].city = city;
+
+    await user.save();
+
+    res.json({ message: "Address updated successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

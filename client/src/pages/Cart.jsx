@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import { useCart } from "../context/cartContext.jsx";
+import CheckoutSteps from "../components/CheckoutSteps";
 import "./Cart.css";
 
 const Cart = () => {
@@ -11,6 +12,7 @@ const Cart = () => {
     removeFromCart,
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
+    totalCartPrice,
   } = useCart();
 
   console.log("Cart from cartContext:", cart);
@@ -23,17 +25,13 @@ const Cart = () => {
     }
   };
 
-  // Calculate the total price using reduce
-  const totalPrice = cart.reduce((accumulator, item) => {
-    return accumulator + item.product.price * item.quantity;
-  }, 0);
-
   const checkoutHandler = () => {
     navigate("/shipping");
   };
 
   return (
     <>
+      <CheckoutSteps step1></CheckoutSteps>
       {cart && cart.length > 0 ? (
         <div className="cart-container">
           <div className="cart-left-column">
@@ -74,7 +72,7 @@ const Cart = () => {
                 0
               )}
             </h3>
-            <h3>Total Price: {totalPrice.toFixed(2)} €</h3>
+            <h3>Total Price: {totalCartPrice.toFixed(2)} €</h3>
             <button onClick={checkoutHandler}>Proceed to Checkout</button>
             <h4>Or...</h4>
             <button

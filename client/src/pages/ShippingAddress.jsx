@@ -39,6 +39,13 @@ const ShippingAddress = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (!selectedAddress && !manualEntry) {
+      // If neither saved address nor manual entry is selected, display an alert
+      alert("Please provide a shipping address to proceed");
+      return; // Prevent form submission
+    }
+
     // Create an object with the form data
     const shippingAddressData = {};
 
@@ -179,7 +186,7 @@ const ShippingAddress = () => {
           )}
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Continue to Payment</button>
       </form>
     </>
   );

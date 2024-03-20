@@ -1,6 +1,13 @@
 body {
     text-align: center; 
+    
 }
+
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
 .products-container {
     display: flex;

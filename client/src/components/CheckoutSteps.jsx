@@ -20,10 +20,10 @@ export default function CheckoutSteps(props) {
         2. <FaRegAddressCard /> Shipping Address
       </div>
       <div className={props.step3 ? "active" : ""}>
-        3. <MdOutlinePayment /> Payment
+        3. <MdOutlinePayment /> Order Review & Payment
       </div>
       <div className={props.step4 ? "active" : ""}>
-        4. <TbShoppingBagCheck /> Place Order/Confirmation
+        4. <TbShoppingBagCheck /> Order Confirmation
       </div>
     </div>
   );

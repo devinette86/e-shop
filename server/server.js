@@ -7,11 +7,12 @@ import userRoutes from "./routes/userRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 
-import stripe from 'stripe';
+import Order from "./models/orderModel.js";
 
-const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2022-08-01",
-});
+import stripe from 'stripe';
+const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
+
+
 
 const port = process.env.PORT;
 
@@ -33,45 +34,56 @@ app.use('/cart', cartRoutes);
 app.use('/order', orderRoutes);
 
 app.get("/api/products", async (req, res) => {
-    const { category } = req.query;
-    const filter = category ? { category } : {};
-    const products = await Product.find(filter);
-    res.json(products);
-  });
+  const { category } = req.query;
+  const filter = category ? { category } : {};
+  const products = await Product.find(filter);
+  res.json(products);
+});
 
-  app.get('/api/config/paypal', (req, res) =>
+app.get('/api/config/paypal', (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-app.get("/config", (req, res) => {
-  res.send({
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-  });
-});
-
-app.post("/create-payment-intent", async (req, res) => {
+app.post("/create-checkout-session", async (req, res) => {
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: "EUR",
-      amount: 1999,
-      automatic_payment_methods: { enabled: true },
-    });
-
-    // Send publishable key and PaymentIntent details to client
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
-  } catch (e) {
-    return res.status(400).send({
-      error: {
-        message: e.message,
+    console.log(req.body)
+ 
+ 
+    const { products } = req.body;
+ 
+ 
+    const lineItems = products.map((item) => ({
+      price_data: {
+        currency: "eur",
+        product_data: {
+          name: item.product.name, // You can adjust the property names as needed
+          images: [item.product.imageUrl],
+        },
+        unit_amount: Math.round(item.product.price * 100),
       },
+      quantity: item.quantity,
+    }));
+ 
+ 
+    const session = await stripeInstance.checkout.sessions.create({  
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: lineItems,
+      success_url: `${process.env.CLIENT_URL}/order-confirmation`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
     });
+ 
+ 
+    res.json({ id: session.id });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
   }
-});
-
-
+ });
+ 
 
 app.listen(port, () => {
- console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
+
+
+

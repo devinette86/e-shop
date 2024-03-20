@@ -1,85 +1,46 @@
-import { useEffect, useState } from "react";
-import { Elements } from "@stripe/react-stripe-js";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import { PaymentElement } from "@stripe/react-stripe-js";
-import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { useCart } from "../context/cartContext.jsx";
 
-function Payment() {
-  const stripe = useStripe();
-  const elements = useElements();
+const Payment = () => {
+  const { cart } = useCart();
 
-  const [message, setMessage] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51OqzGPLDbOQk1AFrQjfs2GP5I5eZhjWTC3g1P6Zaip3yJSVmo6imBKL2QYJ89PVxIiPrTJc14jLoVqQhQ8Y4ISVH00e2NqyVi3"
+    );
 
-  const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState("");
+    // Structure the body object with an array of items
+    const body = {
+      products: cart,
+    };
 
-  useEffect(() => {
-    fetch("/config").then(async (r) => {
-      const { publishableKey } = await r.json();
-      console.log(publishableKey);
-      setStripePromise(loadStripe(publishableKey));
+    const headers = { "Content-Type": "application/json" };
+
+    const response = await fetch(
+      `http://localhost:3102/create-checkout-session`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
+
+    const session = await response.json();
+
+    console.log("session from Payment", session);
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
     });
-  }, []);
 
-  useEffect(() => {
-    fetch("/create-payment-intent", {
-      method: "POST",
-      body: JSON.stringify({}),
-    }).then(async (result) => {
-      const { clientSecret } = await result.json();
-      console.log(clientSecret);
-      setClientSecret(clientSecret);
-    });
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
+    if (result.error) {
+      console.log(result.error);
     }
-
-    setIsProcessing(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/completion`,
-      },
-    });
-
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occured.");
-    }
-
-    setIsProcessing(false);
   };
 
-  return (
-    <>
-      <h1>React Stripe and the Payment Element</h1>
-      {clientSecret && stripePromise && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <form id="payment-form" onSubmit={handleSubmit}>
-            <PaymentElement id="payment-element" />
-            <button disabled={isProcessing || !stripe || !elements} id="submit">
-              <span id="button-text">
-                {isProcessing ? "Processing ... " : "Pay now"}
-              </span>
-            </button>
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-          </form>
-        </Elements>
-      )}
-    </>
-  );
-}
+  return <button onClick={makePayment}>Checkout</button>;
+};
 
 export default Payment;

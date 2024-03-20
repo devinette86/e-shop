@@ -19,38 +19,41 @@ const Header = () => {
   return (
     <header>
       <nav className="navbar">
-        <div>
-          <NavLink to="/">
-            <FaHome /> Home
-          </NavLink>
-          <NavLink to="">
-            <FaPeopleGroup />
-            About Us
-          </NavLink>
-          <NavLink to="">
-            <FaPhoneSquareAlt />
-            Contact
-          </NavLink>
-        </div>
-        <div>
-          {user ? (
-            <>
-              Hello, {user.name} !
+        <ul>
+          <li>
+            <NavLink to="/">
+              <FaHome /> Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="">
+              <FaPeopleGroup />
+              About Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="">
+              <FaPhoneSquareAlt />
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+
+        {user ? (
+          <ul>
+            <li>
+              <p>Hello, {user.name} !</p>
+            </li>
+            <li>
+              <NavLink to="/profile">
+                <FaUserEdit /> Profile
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/cart">
                 <FaShoppingCart /> Cart
                 {cart.length > 0 && (
-                  <span
-                    style={{
-                      width: "25px", // Set to the desired size
-                      height: "25px", // Set to the desired size
-                      borderRadius: "50%",
-                      padding: "5px",
-                      marginLeft: "2px",
-                      color: "white",
-                      backgroundColor: "violet",
-                      display: "inline-block", // Ensures the element respects width and height
-                    }}
-                  >
+                  <span class="cart-count-badge">
                     {cart.reduce(
                       (accumulator, item) => accumulator + item.quantity,
                       0
@@ -58,22 +61,25 @@ const Header = () => {
                   </span>
                 )}
               </NavLink>
-              <NavLink to="/profile">
-                <FaUserEdit /> Profile
-              </NavLink>
+            </li>
+            <li>
               <button onClick={logout}>Logout</button>
-            </>
-          ) : (
-            <>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
               <NavLink to="/login">
                 <FaUser /> Login
               </NavLink>
+            </li>
+            <li>
               <NavLink to="/register">
                 <FaWpforms /> Register
               </NavLink>
-            </>
-          )}
-        </div>
+            </li>
+          </ul>
+        )}
       </nav>
     </header>
   );
